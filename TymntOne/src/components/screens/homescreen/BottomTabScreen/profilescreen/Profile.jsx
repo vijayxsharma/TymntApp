@@ -7,9 +7,16 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../../../../../utility/profile/authSlice';
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
   const [mode, setMode] = useState('consumer');
+
+  const handleLogout =()=>{
+    dispatch(userLogout())
+  }
 
   return (
     <View style={styles.container}>
@@ -147,7 +154,9 @@ const ProfileScreen = () => {
         ))}
 
         {/* LOGOUT */}
-        <TouchableOpacity style={styles.logout}>
+        <TouchableOpacity style={styles.logout}
+         onPress={handleLogout}
+        >
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
       </ScrollView>

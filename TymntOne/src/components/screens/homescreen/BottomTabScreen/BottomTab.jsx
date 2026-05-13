@@ -15,6 +15,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
   const {isAuthenticated} = useSelector((state)=>state.authSlice)
+  {console.log(isAuthenticated)}
   const getTabBarIcons = (routeName, focused, color, size) => {
     let iconName;
 

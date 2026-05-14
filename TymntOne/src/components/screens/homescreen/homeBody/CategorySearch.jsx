@@ -13,6 +13,7 @@ const CategorySearch = () => {
         placeholderTextColor="#696d74"
         style={styles.input}
       />
+      
     </View>
     </View>
   );

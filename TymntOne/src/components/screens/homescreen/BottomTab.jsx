@@ -3,19 +3,21 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import PostRequest from './newRequest/PostRequest';
+import PostRequest from '../RequestScreen/PostRequest';
 import Explore from './Explore';
-import Home from '../Home';
+import Home from './Home';
 import Chat from './Chat';
-import Profile from './profilescreen/Profile';
-import AuthScreen from './profilescreen/AuthScreen';
-import { useSelector } from 'react-redux';
+import Profile from '../ProfileScreen/Profile';
+import AuthScreen from '../ProfileScreen/AuthScreen';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
-  const {isAuthenticated} = useSelector((state)=>state.authSlice)
-  {console.log(isAuthenticated)}
+  const {isAuthenticated} = useSelector(state => state.authSlice);
+  {
+    console.log(isAuthenticated);
+  }
   const getTabBarIcons = (routeName, focused, color, size) => {
     let iconName;
 
@@ -55,8 +57,10 @@ const BottomTab = () => {
       <Tab.Screen name="Request" component={PostRequest} />
       <Tab.Screen name="Chat" component={Chat} />
       {/* <Tab.Screen name="Profile" component={Profile} /> */}
-      <Tab.Screen name="Profile" component={isAuthenticated ? Profile : AuthScreen} />
-
+      <Tab.Screen
+        name="Profile"
+        component={isAuthenticated ? Profile : AuthScreen}
+      />
     </Tab.Navigator>
   );
 };

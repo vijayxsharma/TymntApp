@@ -7,31 +7,34 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useDispatch } from 'react-redux';
-import { userLogout } from '../../../../../utility/profile/authSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {userLogout} from '../../../utility/authSlice';
+import {userProfile} from '../../../utility/profileSlice';
+import { useEffect } from 'react';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
+  const {user} = useSelector(state=>state.profileSlice);
   const [mode, setMode] = useState('consumer');
 
-  const handleLogout =()=>{
-    dispatch(userLogout())
-  }
+  useEffect(()=>{
+    dispatch(userProfile());
+  },[])
+  const handleLogout = () => {
+    dispatch(userLogout());
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        
         {/* HEADER */}
         <View style={styles.header}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>RM</Text>
+            <Text style={styles.avatarText}>{user?.name?.[0]}</Text>
           </View>
 
-          <Text style={styles.name}>Rahul Mehta</Text>
-          <Text style={styles.subText}>
-            Bengaluru • Member since Feb 2024
-          </Text>
+          <Text style={styles.name}>{user?.name}</Text>
+          <Text style={styles.subText}>Bengaluru • Member since Feb 2024</Text>
 
           {/* STATS */}
           <View style={styles.statsContainer}>
@@ -106,9 +109,7 @@ const ProfileScreen = () => {
 
             <View style={{flex: 1}}>
               <Text style={styles.cardTitle}>Dr. Ananya P.</Text>
-              <Text style={styles.cardSub}>
-                Life Coach • Today, 3:00 PM
-              </Text>
+              <Text style={styles.cardSub}>Life Coach • Today, 3:00 PM</Text>
             </View>
 
             <View style={styles.badgeBlue}>
@@ -126,9 +127,7 @@ const ProfileScreen = () => {
 
             <View style={{flex: 1}}>
               <Text style={styles.cardTitle}>Sneha J.</Text>
-              <Text style={styles.cardSub}>
-                Task Help • Yesterday
-              </Text>
+              <Text style={styles.cardSub}>Task Help • Yesterday</Text>
             </View>
 
             <View style={styles.badgeGray}>
@@ -154,9 +153,7 @@ const ProfileScreen = () => {
         ))}
 
         {/* LOGOUT */}
-        <TouchableOpacity style={styles.logout}
-         onPress={handleLogout}
-        >
+        <TouchableOpacity style={styles.logout} onPress={handleLogout}>
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
       </ScrollView>

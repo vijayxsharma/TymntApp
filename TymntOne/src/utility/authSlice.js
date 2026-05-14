@@ -8,35 +8,21 @@ export const loadUser = createAsyncThunk('auth/loadUser', async ()=>{
     }
 );
 
-export const signupuser = createAsyncThunk(
+export const signUpUser = createAsyncThunk(
     'auth/signupUser',
-    async (userData,thunkAPI) =>{
-        try {
-            const res = await axios.post(`http://10.185.63.108:3200/api/auth/signup`,userData);
-            await AsyncStorage.setItem('token', String(res.data.token))
-            return res.data;
-        } catch (error) {
-             console.log(error);
-            return thunkAPI.rejectWithValue(
-                error.response?.data?.message || 'Something went wrong'
-            );
-        }
+    async (userData) =>{
+        const res = await axios.post(`http://10.185.63.108:3200/api/auth/signup`,userData);
+                    await AsyncStorage.setItem('token', String(res.data.token))
+        return res.data;
     }
 );
 
 export const signInUser = createAsyncThunk(
     'auth/signInUser',
-    async (userData,thunkAPI) =>{
-        try {
-            const res = await axios.post(`http://10.185.63.108:3200/api/auth/signin`,userData);
-            await AsyncStorage.setItem('token', String(res.data.token));
-            return res.data;
-        } catch (error) {
-             console.log(error);
-            return thunkAPI.rejectWithValue(
-                error.response?.data?.message || 'Something went wrong'
-            );
-        }
+    async (userData) =>{
+        const res = await axios.post(`http://10.185.63.108:3200/api/auth/signin`,userData);
+                    await AsyncStorage.setItem('token', String(res.data.token));
+        return res.data;
     }
 );
 
@@ -69,18 +55,17 @@ const authSlice = createSlice({
                 state.isAuthenticated = true;
             }
         })
-        .addCase(signupuser.pending, (state)=>{
+        .addCase(signUpUser.pending, (state)=>{
             state.loading=true
         })
-        .addCase(signupuser.fulfilled, (state,action)=>{
+        .addCase(signUpUser.fulfilled, (state,action)=>{
             console.log("signUp successfully");
             
             state.loading=false;
-            state.user=action.payload.user;
             state.token = action.payload.token;
             state.isAuthenticated=true;
         })
-        .addCase(signupuser.rejected, (state,action)=>{
+        .addCase(signUpUser.rejected, (state,action)=>{
             console.log("signUp error");
             state.loading=false;
             state.error=action.payload;
@@ -92,7 +77,6 @@ const authSlice = createSlice({
         .addCase(signInUser.fulfilled, (state,action)=>{
             console.log("signIn successfully");
             state.loading=false;
-            state.user = action.payload.user;
             state.token = action.payload.token;
             state.isAuthenticated=true;
         })

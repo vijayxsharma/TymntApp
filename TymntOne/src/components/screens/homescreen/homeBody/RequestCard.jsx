@@ -1,74 +1,102 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllRequests } from "../../../../utility/serviceRequestSlice";
 
 const RequestCard = () => {
+  const {serviceRequest} = useSelector(state=>state.serviceRequestSlice);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getAllRequests());
+  },[])
   return (
-    <View style={styles.card}>
-      
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.userInfo}>
-          <Image
-            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }}
-            style={styles.avatar}
-          />
-          <View>
-            <View style={styles.nameRow}>
-              <Text style={styles.name}>Minho Park</Text>
-              <MaterialIcon name="verified" size={16} color="#2563EB" />
+     <FlatList
+      data={serviceRequest?.requests || []}
+      keyExtractor={(item) => item._id}
+      renderItem={({ item }) => (
+        <View style={styles.card}>
+
+          {/* Header */}
+          <View style={styles.header}>
+            <View style={styles.userInfo}>
+              <Image
+                source={{
+                  uri:
+                    item?.profileImage ||
+                    "https://randomuser.me/api/portraits/men/32.jpg",
+                }}
+                style={styles.avatar}
+              />
+
+              <View>
+                <View style={styles.nameRow}>
+                  <Text style={styles.name}>{item?.consumer_id?.name}</Text>
+
+                  <MaterialIcon
+                    name="verified"
+                    size={16}
+                    color="#2563EB"
+                  />
+                </View>
+
+                <Text style={styles.role}>{item?.category}</Text>
+              </View>
             </View>
-            <Text style={styles.role}>Household Buddy</Text>
+
+            <View style={styles.rightHeader}>
+              <Icon name="clock" size={14} color="#64748B" />
+              <Text style={styles.time}>1d</Text>
+            </View>
+          </View>
+
+          {/* Description */}
+          <Text style={styles.description}>
+            {item?.description}
+          </Text>
+
+          {/* Info Row */}
+          <View style={styles.infoRow}>
+            <View style={styles.tag}>
+              <Icon name="map-pin" size={12} color="#334155" />
+              <Text style={styles.tagText}>Faridabad</Text>
+            </View>
+
+            <View style={styles.tag}>
+              <Text style={styles.tagText}>
+                COST : ₹{item?.max_budget}/hr
+              </Text>
+            </View>
+
+            <View style={styles.tag}>
+              <Text style={styles.tagText}>
+                EST.T :  1hr
+              </Text>
+            </View>
+          </View>
+
+          {/* Actions */}
+          <View style={styles.actions}>
+            <TouchableOpacity style={styles.actionBtn}>
+              <Icon name="bookmark" size={14} color="#334155" />
+              <Text style={styles.actionText}>Save</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionBtn}>
+              <Icon name="message-circle" size={14} color="#334155" />
+              <Text style={styles.actionText}>Message</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.startBtn}>
+              <Text style={styles.startText}>Start</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        <View style={styles.rightHeader}>
-          <Icon name="clock" size={14} color="#64748B" />
-          <Text style={styles.time}>22d</Text>
-          <Icon name="more-vertical" size={18} color="#64748B" />
-        </View>
-      </View>
-
-      {/* Description */}
-      <Text style={styles.description}>
-        My maid is not available today, so I need someone to help with cooking
-        and washing utensils.
-      </Text>
-
-      {/* Info Row */}
-      <View style={styles.infoRow}>
-        <View style={styles.tag}>
-          <Icon name="map-pin" size={12} color="#334155" />
-          <Text style={styles.tagText}>Faridabad</Text>
-        </View>
-
-        <View style={styles.tag}>
-          <Text style={styles.tagText}>COST : ₹200/hr</Text>
-        </View>
-        <View style={styles.tag}>
-          <Text style={styles.tagText}>EST.T : 2hr</Text>
-        </View>
-      </View>
-
-      {/* Actions */}
-      <View style={styles.actions}>
-        <TouchableOpacity style={styles.actionBtn}>
-          <Icon name="bookmark" size={14} color="#334155" />
-          <Text style={styles.actionText}>Save</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionBtn}>
-          <Icon name="message-circle" size={14} color="#334155" />
-          <Text style={styles.actionText}>Message</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.startBtn}>
-          <Text style={styles.startText}>Start</Text>
-        </TouchableOpacity>
-      </View>
-
-    </View>
+      )}
+      scrollEnabled={false}
+      nestedScrollEnabled={true}  
+    />
   );
 };
 
@@ -79,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 14,
-    // marginVertical: 10,
+    marginVertical: 4,
     marginHorizontal: 12,
     elevation: 3,
   },

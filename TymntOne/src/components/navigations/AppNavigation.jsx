@@ -3,8 +3,8 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Onboarding from '../onboarding/OnboardingScreen';
-import BottomTab from '../screens/homescreen/BottomTabScreen/BottomTab';
-import NotificationsScreen from '../screens/homescreen/homeBody/homeheader/NotificationsScreen';
+import BottomTab from '../screens/homescreen/BottomTab';
+import NotificationsScreen from '../screens/NotificationScreen/Notification';
 
 const Stack = createNativeStackNavigator();
 const AppNavigation = () => {

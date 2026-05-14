@@ -1,6 +1,6 @@
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import HomeHeader from './homeBody/homeheader/HomeHeader';
+import HomeHeader from './homeBody/HomeHeader';
 import ModeToggle from './homeBody/ModeToggle';
 import CategorySearch from './homeBody/CategorySearch';
 import ImageSlider from './homeBody/ImageSlider';
@@ -20,7 +20,6 @@ const Home = () => {
         <ModeToggle />
         <CategorySearch />
         <CategoryChips />
-        {/* <Text style={{color: 'black'}}>Home</Text> */}
         <RequestCard />
       </ScrollView>
     </View>

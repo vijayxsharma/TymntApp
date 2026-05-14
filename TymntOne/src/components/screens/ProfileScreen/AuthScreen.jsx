@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {LinearGradient} from 'react-native-linear-gradient';
-import {signInUser, signupuser} from '../../../../../utility/profile/authSlice';
+import {signInUser, signUpUser} from '../../../utility/authSlice';
 
 const AuthScreen = () => {
   const [mode, setMode] = useState('signup'); // login | signup
@@ -29,16 +29,16 @@ const AuthScreen = () => {
       email,
       password,
     };
-    dispatch(signupuser(userData));
+    dispatch(signUpUser(userData));
   };
 
-  const handleLogin = ()=>{
-    const loginData ={
+  const handleLogin = () => {
+    const loginData = {
       email,
-      password
-    }
-    dispatch(signInUser(loginData))
-  }
+      password,
+    };
+    dispatch(signInUser(loginData));
+  };
 
   return (
     <View style={styles.container}>
@@ -127,7 +127,9 @@ const AuthScreen = () => {
         />
 
         {/* Button */}
-        <TouchableOpacity style={{marginTop: 25}} onPress={mode === 'login' ? handleLogin : handleRegister}>
+        <TouchableOpacity
+          style={{marginTop: 25}}
+          onPress={mode === 'login' ? handleLogin : handleRegister}>
           <LinearGradient colors={['#3b82f6', '#a855f7']} style={styles.button}>
             <Text style={styles.buttonText}>
               {mode === 'login' ? 'Login' : 'Sign Up'}

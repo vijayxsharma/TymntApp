@@ -1,10 +1,10 @@
 import express from "express"
 import { signInController, signupController } from "../controller/authController.js"
 import { profileController } from "../controller/userController.js"
+import { tokenChecker } from "../middleware/tokenCheck.js"
 export const authRouter = express.Router()
 export const userRouter = express.Router()
 
-
 authRouter.post("/signup", signupController)
 authRouter.post("/signin", signInController)
-userRouter.get("/profile", profileController)
+userRouter.get("/profile", tokenChecker, profileController)

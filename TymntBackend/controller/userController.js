@@ -3,12 +3,11 @@ import User from "../Model/user.js";
 export const profileController = async (req, res)=>{
     try {
         const email = req.email;
-        let userExist = await User.findOne({email});
-        if(userExist)
+        let user = await User.findOne({email});
         res.status(200).json({
             status:"success",
             message:"profile page",
-            user:userExist
+            user
         })
     } catch (error) {
         res.status(400).json({

@@ -3,11 +3,14 @@ import dotenv from "dotenv"
 import { authRouter, userRouter } from "./routes/authRoutes.js"
 import { connectDb } from "./config/connectDb.js"
 import { tokenChecker } from "./middleware/tokenCheck.js"
+import { requestRouter } from "./routes/requestRoutes.js"
 const app = express()
 
 app.use(express.json())
 app.use("/api/auth",authRouter)
-app.use("/api/user", tokenChecker, userRouter)
+app.use("/api/user", userRouter)
+
+app.use("/api/new_request",requestRouter)
 
 
 dotenv.config()

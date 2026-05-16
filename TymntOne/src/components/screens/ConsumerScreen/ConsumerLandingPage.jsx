@@ -3,17 +3,17 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import PostRequest from '../RequestScreen/PostRequest';
+import PostRequest from './RequestScreen/PostRequest';
 import Explore from './Explore';
 import Home from './Home';
 import Chat from './Chat';
-import ProfileScreen from '../ConsumerScreen/ConsumerProfile/consumerProfile';
+import ProfileScreen from './ConsumerProfile/consumerProfile';
 import AuthScreen from '../ProfileScreen/AuthScreen';
 import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTab = () => {
+const ConsumerLandingPage = () => {
   const {isAuthenticated} = useSelector(state => state.authSlice);
   {
     console.log(isAuthenticated);
@@ -64,6 +64,6 @@ const BottomTab = () => {
   );
 };
 
-export default BottomTab;
+export default ConsumerLandingPage;
 
 const styles = StyleSheet.create({});

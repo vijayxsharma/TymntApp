@@ -14,8 +14,12 @@ import {
   deleteRequest,
   getAllRequests,
   updateRequest,
-} from '../../../../../utility/serviceRequestSlice';
-import {editRequest, removeRequest, requestFilter} from '../../../../../utility/requestFilterSlice'
+} from '../../../../utility/serviceRequestSlice';
+import {
+  editRequest,
+  removeRequest,
+  requestFilter,
+} from '../../../../../utility/requestFilterSlice';
 import {useState} from 'react';
 import RequestMenuModal from './RequestMenuModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
@@ -36,24 +40,24 @@ const RequestCard = () => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteRequest(selectedRequest._id))
+    dispatch(deleteRequest(selectedRequest._id));
     setDeleteVisible(false);
   };
 
-  const handleUpdate = (newData) => {
+  const handleUpdate = newData => {
     dispatch(updateRequest({id: selectedRequest._id, newData: newData}));
     setEditVisible(false);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getAllRequests());
-  },[])
+  }, []);
 
-console.log(selectedRequest)
+  console.log(selectedRequest);
   return (
     <>
       <FlatList
-        data={serviceRequest || []}       
+        data={serviceRequest || []}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
           <View style={styles.card}>

@@ -5,14 +5,14 @@ import Carousel from 'react-native-reanimated-carousel';
 const { width } = Dimensions.get('window');
 
 const images = [
-  require('../../../../../assets/banners/HouseHoldBuddy.png'),
-  require('../../../../../assets/banners/FoodBuddy.png'),
-  require('../../../../../assets/banners/DeliveryBuddy2.png'),
-  require('../../../../../assets/banners/EmotionalBuddy.png'),
-  require('../../../../../assets/banners/ClothsBuddy.png'),
-  require('../../../../../assets/banners/QueueBuddy.png'),
-  require('../../../../../assets/banners/AssignmentBuddy.png'),
-  require('../../../../../assets/banners/SkilledBuddy.png'),
+  require('../../../../assets/banners/HouseHoldBuddy.png'),
+  require('../../../../assets/banners/FoodBuddy.png'),
+  require('../../../../assets/banners/DeliveryBuddy2.png'),
+  require('../../../../assets/banners/EmotionalBuddy.png'),
+  require('../../../../assets/banners/ClothsBuddy.png'),
+  require('../../../../assets/banners/QueueBuddy.png'),
+  require('../../../../assets/banners/AssignmentBuddy.png'),
+  require('../../../../assets/banners/SkilledBuddy.png'),
 ];
 
 const ImageSlider = () => {

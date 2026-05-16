@@ -3,8 +3,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Onboarding from '../onboarding/OnboardingScreen';
-import BottomTab from '../screens/homescreen/BottomTab';
-import NotificationsScreen from '../screens/NotificationScreen/Notification';
+// import BottomTab from '../screens/homescreen/BottomTab';
+// import NotificationsScreen from '../screens/NotificationScreen/Notification';
+import RootNavigator from './RootNavigator';
 
 const Stack = createNativeStackNavigator();
 const AppNavigation = () => {
@@ -19,13 +20,15 @@ const AppNavigation = () => {
         <Stack.Screen
           name="landingpage"
           options={{headerShown: false}}
-          component={BottomTab}
+          // component={BottomTab}
+          component={RootNavigator}
+
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="notifications"
           options={{headerShown: false}}
           component={NotificationsScreen}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

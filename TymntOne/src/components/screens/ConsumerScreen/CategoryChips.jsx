@@ -7,8 +7,8 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { requestFilter } from '../../../../utility/serviceRequestSlice';
+import {useDispatch} from 'react-redux';
+import {requestFilter} from '../../../utility/serviceRequestSlice';
 
 const {width, height} = Dimensions.get('window');
 const categories = [
@@ -33,36 +33,30 @@ const CategoryChips = () => {
         contentContainerStyle={styles.container1}>
         {categories.map((item, index) => {
           const isActive = active === item;
-          const handleFilter = (item) => {
+          const handleFilter = item => {
+            setActive(item);
 
-    setActive(item);
-
-    if(item === 'All'){
-
-      dispatch(
-        requestFilter({
-          category:'',
-          search:''
-        })
-      );
-
-    }else{
-
-      dispatch(
-        requestFilter({
-          category:item,
-          search:''
-        })
-      );
-
-    }
-
-  };
+            if (item === 'All') {
+              dispatch(
+                requestFilter({
+                  category: '',
+                  search: '',
+                }),
+              );
+            } else {
+              dispatch(
+                requestFilter({
+                  category: item,
+                  search: '',
+                }),
+              );
+            }
+          };
           return (
             <TouchableOpacity
               key={index}
               style={[styles.chip, isActive && styles.activeChip]}
-              onPress={()=>handleFilter(item)}>
+              onPress={() => handleFilter(item)}>
               <Text style={[styles.text, isActive && styles.activeText]}>
                 {item}
               </Text>

@@ -1,11 +1,11 @@
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import HomeHeader from './homeBody/HomeHeader';
-import ModeToggle from './homeBody/ModeToggle';
-import CategorySearch from './homeBody/CategorySearch';
-import ImageSlider from './homeBody/ImageSlider';
-import CategoryChips from './homeBody/CategoryChips';
-import RequestCard from '../homescreen/homeBody/RequestCard/RequestCard';
+import HomeHeader from './HomeHeader';
+import ModeToggle from './ModeToggle';
+import CategorySearch from './CategorySearch';
+import ImageSlider from './ImageSlider';
+import CategoryChips from './CategoryChips';
+import RequestCard from './RequestCard/RequestCard';
 
 const {width, height} = Dimensions.get('window');
 const Home = () => {

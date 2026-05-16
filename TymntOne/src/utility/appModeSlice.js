@@ -12,5 +12,5 @@ const appModeSlice = createSlice({
     }
 });
 
-export const {} = appModeSlice.actions;
+export const {setAppMode} = appModeSlice.actions;
 export default appModeSlice.reducer;

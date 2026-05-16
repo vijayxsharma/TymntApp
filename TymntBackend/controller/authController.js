@@ -4,11 +4,12 @@ import User from "../Model/user.js";
 export const signupController = async (req, res)=>{
     try {
         const {name, phone, email, password} = req.body;
-        if(!name || !phone || !email){
+        if(!name || !phone || !email || !password){
             return res.status(400).json({
             status:"Fail",
             message:`All fields are required`
             })
+            console.log("All fields are required")
         }
         const isExist =  await User.findOne({email})
         if(isExist){
@@ -16,6 +17,7 @@ export const signupController = async (req, res)=>{
             status:"Fail",
             message:`user already exist`
         })
+        console.log("User already exist")
         }
         const user = await User.create({name,phone,email,password})
         if(user){
@@ -23,7 +25,7 @@ export const signupController = async (req, res)=>{
             console.log(token)
             res.cookie("token", token);
         }
-        
+        console.log("Sign up SuccessFully..")
         res.status(200).json({
             status:"success",
             message:"User Sign up Successfully",
@@ -34,6 +36,7 @@ export const signupController = async (req, res)=>{
             status:"Fail",
             message:`Error: ${error}`
         })
+        console.log(`Error in Sign Up : ${error}`)
     }
 }
 

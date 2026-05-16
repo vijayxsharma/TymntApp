@@ -25,7 +25,7 @@ const service_request_Schema = new mongoose.Schema({
 
     status:{
         type:String,
-        default:'pending',
+        default:'Accept',
     },
 
     service_provider_id:{

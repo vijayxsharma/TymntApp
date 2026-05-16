@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllRequests, newServiceRequest} from '../../../utility/serviceRequestSlice';
+import {getAllRequests, newServiceRequest} from '../../../../utility/serviceRequestSlice';
 import { useNavigation } from '@react-navigation/native';
 
 const categories = [
@@ -27,8 +27,6 @@ const PostRequest = () => {
   const [category, setCategory] = useState('');
   const [max_budget, setBudget] = useState('');
   const dispatch = useDispatch();
-
-  const newRequestData = {};
 
   const PostNewRequest = async () => {
     if (!description || !category || !max_budget) {
@@ -99,6 +97,7 @@ const PostRequest = () => {
           placeholderTextColor="#6c7a92"
           style={styles.input}
           value={max_budget}
+          keyboardType="numeric"
           onChangeText={setBudget}
         />
       </View>

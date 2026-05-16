@@ -5,7 +5,7 @@ import ModeToggle from './homeBody/ModeToggle';
 import CategorySearch from './homeBody/CategorySearch';
 import ImageSlider from './homeBody/ImageSlider';
 import CategoryChips from './homeBody/CategoryChips';
-import RequestCard from './homeBody/RequestCard';
+import RequestCard from '../homescreen/homeBody/RequestCard/RequestCard';
 
 const {width, height} = Dimensions.get('window');
 const Home = () => {

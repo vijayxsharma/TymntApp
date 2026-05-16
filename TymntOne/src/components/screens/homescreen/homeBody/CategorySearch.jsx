@@ -1,9 +1,21 @@
 import React from "react";
+import { useState } from "react";
 import { View, TextInput, StyleSheet, Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { useDispatch } from "react-redux";
+import { requestFilter } from "../../../../utility/serviceRequestSlice";
 
 const { width, height } = Dimensions.get('window');
 const CategorySearch = () => {
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+  const handleSearch = (text)=>{
+    setSearch(text);
+    dispatch(requestFilter({
+      category:'',
+      search: text,
+    }))
+  }
   return (
     <View style={{alignItems:'center'}}>
         <View style={styles.container}>
@@ -12,6 +24,8 @@ const CategorySearch = () => {
         placeholder="What do you need help with right now?"
         placeholderTextColor="#696d74"
         style={styles.input}
+        value={search}
+        onChangeText={handleSearch}
       />
       
     </View>

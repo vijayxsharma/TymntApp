@@ -7,7 +7,7 @@ import PostRequest from '../RequestScreen/PostRequest';
 import Explore from './Explore';
 import Home from './Home';
 import Chat from './Chat';
-import Profile from '../ProfileScreen/Profile';
+import ProfileScreen from '../ConsumerScreen/ConsumerProfile/consumerProfile';
 import AuthScreen from '../ProfileScreen/AuthScreen';
 import {useSelector} from 'react-redux';
 
@@ -56,10 +56,9 @@ const BottomTab = () => {
       <Tab.Screen name="Engagements" component={Explore} />
       <Tab.Screen name="Request" component={PostRequest} />
       <Tab.Screen name="Chat" component={Chat} />
-      {/* <Tab.Screen name="Profile" component={Profile} /> */}
       <Tab.Screen
         name="Profile"
-        component={isAuthenticated ? Profile : AuthScreen}
+        component={isAuthenticated ? ProfileScreen : AuthScreen}
       />
     </Tab.Navigator>
   );

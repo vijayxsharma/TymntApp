@@ -1,5 +1,5 @@
-import { generateToken } from "../middleware/jwtTokenGenerator.js";
-import User from "../Model/user.js";
+import { generateToken } from "../../middleware/jwtTokenGenerator.js";
+import User from "../../Model/user.js";
 
 export const signupController = async (req, res)=>{
     try {

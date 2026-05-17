@@ -31,6 +31,7 @@ const service_request_Schema = new mongoose.Schema({
     service_provider_id:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'users',
+        default:null
     }
 
 },{timestamps:true});

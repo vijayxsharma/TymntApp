@@ -1,4 +1,4 @@
-import serviceRequests from "../Model/service_requests.js";
+import serviceRequests from "../../Model/service_requests.js";
 
 export const requestFilterController = async(req,res)=>{
     try {

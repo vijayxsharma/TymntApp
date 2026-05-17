@@ -5,6 +5,7 @@ import { connectDb } from "./config/connectDb.js"
 import { tokenChecker } from "./middleware/tokenCheck.js"
 import { requestRouter } from "./routes/requestRoutes.js"
 import { requestFilterRouter } from "./routes/requestFilterRoutes.js"
+import { requestAcceptRouter } from "./routes/requestAcceptRoute.js"
 const app = express()
 
 app.use(express.json())
@@ -12,9 +13,8 @@ app.use("/api/auth",authRouter)
 app.use("/api/user", userRouter)
 
 app.use("/api/request",requestRouter)
-
 app.use("/api",requestFilterRouter);
-
+app.use("/api",requestAcceptRouter);
 
 dotenv.config()
 

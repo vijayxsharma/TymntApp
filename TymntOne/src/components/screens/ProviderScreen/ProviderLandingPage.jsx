@@ -10,6 +10,9 @@ import Home from '../ConsumerScreen/Home';
 import ProfileScreen from '../ConsumerScreen/ConsumerProfile/consumerProfile';
 import AuthScreen from '../ProfileScreen/AuthScreen';
 import {useSelector} from 'react-redux';
+import ProviderOngoingTask from './ProviderOngoingTask';
+import ProviderRequest from './ProviderRequest';
+import ProviderChat from './ProviderChat';
 
 const Tab = createBottomTabNavigator();
 
@@ -53,9 +56,9 @@ const ProviderLandingPage = () => {
         },
       })}>
       <Tab.Screen name="Home" component={Home} />
-      {/* <Tab.Screen name="Engagements" component={Explore} />
-      <Tab.Screen name="Request" component={PostRequest} />
-      <Tab.Screen name="Chat" component={Chat} /> */}
+      <Tab.Screen name="Engagements" component={ProviderOngoingTask} />
+      <Tab.Screen name="Request" component={ProviderRequest} />
+      <Tab.Screen name="Chat" component={ProviderChat} />
       <Tab.Screen
         name="Profile"
         component={isAuthenticated ? ProfileScreen : AuthScreen}

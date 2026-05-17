@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required: true,
+    },
+    provider_profile_completed:{
+        type:Boolean,
+        default:false
     }
 })
 

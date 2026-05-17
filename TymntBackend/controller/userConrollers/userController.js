@@ -1,4 +1,4 @@
-import User from "../Model/user.js";
+import User from "../../Model/user.js";
 
 export const profileController = async (req, res)=>{
     try {

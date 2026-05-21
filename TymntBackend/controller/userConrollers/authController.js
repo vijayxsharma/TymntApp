@@ -22,7 +22,7 @@ export const signupController = async (req, res)=>{
         const user = await User.create({name,phone,email,password})
         if(user){
             const token = generateToken(user)
-            console.log(token)
+            // console.log(token)
             res.cookie("token", token);
         }
         console.log("Sign up SuccessFully..")
@@ -36,7 +36,7 @@ export const signupController = async (req, res)=>{
             status:"Fail",
             message:`Error: ${error}`
         })
-        console.log(`Error in Sign Up : ${error}`)
+        // console.log(`Error in Sign Up : ${error}`)
     }
 }
 
@@ -58,7 +58,7 @@ export const signInController = async (req, res)=>{
         }
             
         const token = generateToken(isExist)
-        console.log(token)
+        // console.log(token)
         res.cookie("token", token);
         
         

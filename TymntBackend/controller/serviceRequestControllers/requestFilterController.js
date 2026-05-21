@@ -3,7 +3,7 @@ import serviceRequests from "../../Model/service_requests.js";
 export const requestFilterController = async(req,res)=>{
     try {
         const {category, search} = req.query;
-        console.log('Data Filtering..')
+        // console.log('Data Filtering..')
         let filter = {};
         if(category){
             filter.category = {
@@ -26,7 +26,7 @@ export const requestFilterController = async(req,res)=>{
             status: "success",
             request
         })
-        console.log(request)
+        // console.log(request)
     } catch (error) {
         res.status(400).json({
             status:"Fail",

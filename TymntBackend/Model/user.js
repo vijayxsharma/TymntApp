@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
-    provider_profile_completed:{
+    isProviderProfileCompleted:{
         type:Boolean,
         default:false
     }

@@ -3,8 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Onboarding from '../onboarding/OnboardingScreen';
-// import BottomTab from '../screens/homescreen/BottomTab';
-// import NotificationsScreen from '../screens/NotificationScreen/Notification';
+import NotificationsScreen from '../screens/ConsumerScreen/NotificationScreen/Notification';
 import RootNavigator from './RootNavigator';
 
 const Stack = createNativeStackNavigator();
@@ -22,13 +21,12 @@ const AppNavigation = () => {
           options={{headerShown: false}}
           // component={BottomTab}
           component={RootNavigator}
-
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="notifications"
           options={{headerShown: false}}
           component={NotificationsScreen}
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

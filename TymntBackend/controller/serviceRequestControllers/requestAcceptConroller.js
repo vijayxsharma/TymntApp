@@ -1,5 +1,5 @@
 export const requestAcceptController = (req,res)=>{
-    console.log("request Accept path is clear....")
+    // console.log("request Accept path is clear....")
     try {
         res.status(200).json({
             status:"Success",

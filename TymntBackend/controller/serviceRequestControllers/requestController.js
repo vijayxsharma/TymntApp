@@ -55,7 +55,7 @@ export const getAllRequestsController = async(req, res)=>{
 export const deleteRequestController = async(req, res)=>{
     try {
 
-        console.log("LOGGED USER:", req.userId);
+        // console.log("LOGGED USER:", req.userId);
 
         const request = await serviceRequests.findById(req.params.id);
 
@@ -98,8 +98,8 @@ export const deleteRequestController = async(req, res)=>{
 
 export const updateRequestController = async(req,res)=>{
     try {
-        console.log(req.userId);
-        console.log(req.params.id);
+        // console.log(req.userId);
+        // console.log(req.params.id);
         const request = await serviceRequests.findById(req.params.id);
         if(!request){
             return res.status(404).json({

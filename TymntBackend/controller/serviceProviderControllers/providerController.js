@@ -1,16 +1,18 @@
-import serviceProvider from "../../Model/serviceProvider";
+import serviceProvider from "../../Model/serviceProvider.js";
+import User from "../../Model/user.js";
 
-export const createProviderProfile = async(req, res)=>{
+export const createProviderController = async(req, res)=>{
     try {
-        const userId = req.user._id;
+        console.log("provider api clicking..")
+        const userId = req.userId;
         const {bio, tagLine} = req.body;
         const isExistProvider = await serviceProvider.findOne({
             user_id:userId
         })
         if(isExistProvider){
-            return res.status(400).json(
-                {
-                    message:"Provider profile already Exist"
+            return res.status(403).json({
+                   status:"Fail",
+                   message:"Provider profile already Exist"
                 }
             );
         }
@@ -22,7 +24,7 @@ export const createProviderProfile = async(req, res)=>{
         await User.findByIdAndUpdate(
             userId,
             {
-                provider_profile_completed=true
+                isProviderProfileCompleted:true
             }
         );
         res.status(201).json({
@@ -31,7 +33,8 @@ export const createProviderProfile = async(req, res)=>{
         })
     } catch (error) {
         res.status(500).json({
-            message:error.message
+            status:"Fail",
+            message:`Error: ${error.message}`
         });
     }
 }

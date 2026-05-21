@@ -14,12 +14,11 @@ const {width, height} = Dimensions.get('window');
 const categories = [
   'All',
   'Household',
+  'Emotional',
   'skilled',
-  'cloths',
-  'queue',
-  'assignment',
-  'tasks',
-  'counselling',
+  'Food',
+  'Delivery',
+  'Assignment',
 ];
 const CategoryChips = () => {
   const dispatch = useDispatch();

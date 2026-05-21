@@ -6,6 +6,8 @@ import { tokenChecker } from "./middleware/tokenCheck.js"
 import { requestRouter } from "./routes/requestRoutes.js"
 import { requestFilterRouter } from "./routes/requestFilterRoutes.js"
 import { requestAcceptRouter } from "./routes/requestAcceptRoute.js"
+import { providerProfileRouter } from "./routes/serviceProviderRoutes/providerProfileRoutes.js"
+dotenv.config()
 const app = express()
 
 app.use(express.json())
@@ -16,7 +18,8 @@ app.use("/api/request",requestRouter)
 app.use("/api",requestFilterRouter);
 app.use("/api",requestAcceptRouter);
 
-dotenv.config()
+app.use("/api/provider",providerProfileRouter)
+
 
 const port = process.env.PORT;
 

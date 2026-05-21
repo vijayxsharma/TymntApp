@@ -3,10 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-// import PostRequest from './RequestScreen/PostRequest';
-// import Explore from './Explore';
 import Home from '../ConsumerScreen/Home';
-// import Chat from './Chat';
 import ProfileScreen from '../ConsumerScreen/ConsumerProfile/consumerProfile';
 import AuthScreen from '../ProfileScreen/AuthScreen';
 import {useSelector} from 'react-redux';
@@ -68,5 +65,4 @@ const ProviderLandingPage = () => {
 };
 
 export default ProviderLandingPage;
-
 const styles = StyleSheet.create({});

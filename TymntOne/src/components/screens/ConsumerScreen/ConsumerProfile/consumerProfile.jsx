@@ -10,12 +10,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {userLogout} from '../../../../utility/authSlice';
 import {userProfile} from '../../../../utility/profileSlice';
-import {setAppMode} from '../../../../utility/appModeSlice'
+import {setAppMode} from '../../../../utility/appModeSlice';
 import {useEffect} from 'react';
+import {checkProfileComplete} from '../../../../utility/providerSlice/serviceProviderSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const ConsumerProfile = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {activeMode} = useSelector(state=>state.appModeSlice)
+  const {activeMode} = useSelector(state => state.appModeSlice);
   const {user} = useSelector(state => state.profileSlice);
 
   useEffect(() => {
@@ -67,8 +70,7 @@ const ConsumerProfile = () => {
                 styles.toggleButton,
                 activeMode === 'consumer' && styles.activeButton,
               ]}
-              onPress={()=>dispatch(setAppMode('consumer'))}
-              >
+              onPress={() => dispatch(setAppMode('consumer'))}>
               <Text
                 style={[
                   styles.toggleText,
@@ -83,8 +85,15 @@ const ConsumerProfile = () => {
                 styles.toggleButton,
                 activeMode === 'provider' && styles.activeButton,
               ]}
-              onPress={()=>dispatch(setAppMode('provider'))}
-            >
+              onPress={async () => {
+                const result = await dispatch(checkProfileComplete());
+                console.log(result)
+                if (result.payload?.isProviderProfileCompleted) {
+                  dispatch(setAppMode('provider'));
+                } else {
+                  navigation.navigate('ProviderProfileSetup');
+                }
+              }}>
               <Text
                 style={[
                   styles.toggleText,

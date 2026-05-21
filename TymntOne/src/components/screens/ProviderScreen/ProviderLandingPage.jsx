@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import ProviderOngoingTask from './ProviderOngoingTask';
 import ProviderRequest from './ProviderRequest';
 import ProviderChat from './ProviderChat';
+import ProviderProfileScreen from './ProviderProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ const ProviderLandingPage = () => {
       <Tab.Screen name="Chat" component={ProviderChat} />
       <Tab.Screen
         name="Profile"
-        component={isAuthenticated ? ProfileScreen : AuthScreen}
+        component={ProviderProfileScreen}
       />
     </Tab.Navigator>
   );

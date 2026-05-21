@@ -14,6 +14,7 @@ import {setAppMode} from '../../../../utility/appModeSlice';
 import {useEffect} from 'react';
 import {checkProfileComplete} from '../../../../utility/providerSlice/serviceProviderSlice';
 import {useNavigation} from '@react-navigation/native';
+import ModeToggleButton from '../../ModeToggleButton';
 
 const ConsumerProfile = () => {
   const navigation = useNavigation();
@@ -61,52 +62,6 @@ const ConsumerProfile = () => {
               </View>
             </View>
           </View>
-          {/* APP MODE */}
-          <Text style={styles.sectionTitle}>APP MODE</Text>
-
-          <View style={styles.toggleContainer}>
-            <TouchableOpacity
-              style={[
-                styles.toggleButton,
-                activeMode === 'consumer' && styles.activeButton,
-              ]}
-              onPress={() => dispatch(setAppMode('consumer'))}>
-              <Text
-                style={[
-                  styles.toggleText,
-                  activeMode === 'consumer' && styles.activeText,
-                ]}>
-                Consumer Mode
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.toggleButton,
-                activeMode === 'provider' && styles.activeButton,
-              ]}
-              onPress={async () => {
-                const result = await dispatch(checkProfileComplete());
-                console.log(result)
-                if (result.payload?.isProviderProfileCompleted) {
-                  dispatch(setAppMode('provider'));
-                } else {
-                  navigation.navigate('ProviderProfileSetup');
-                }
-              }}>
-              <Text
-                style={[
-                  styles.toggleText,
-                  activeMode === 'provider' && styles.activeText,
-                ]}>
-                Provider Mode
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.helperText}>
-            Switch to offer your skills and earn money.
-          </Text>
 
           {/* BOOKINGS */}
           <View style={styles.rowBetween}>
@@ -166,6 +121,7 @@ const ConsumerProfile = () => {
             </TouchableOpacity>
           ))}
 
+          <ModeToggleButton/>
           {/* LOGOUT */}
           <TouchableOpacity style={styles.logout} onPress={handleLogout}>
             <Text style={styles.logoutText}>Log Out</Text>

@@ -38,3 +38,28 @@ export const createProviderController = async(req, res)=>{
         });
     }
 }
+
+export const getSingleProviderController = async(req,res)=>{
+    try {
+        const user_id = req.params.id;
+        console.log(user_id)
+        const provider = await serviceProvider.find({user_id})
+        console.log(provider)
+        if(provider == null){
+            return res.status(404).json({
+                status:"Fail",
+                message:"Provider not found"
+            })
+        }
+        res.status(200).json({
+            status:"Success",
+            message:"Successfully get the provider",
+            provider:provider
+        })
+    } catch (error) {
+        res.status(400).json({
+            status:"Fail",
+            message:`Error: ${error}`
+        })
+    }
+}

@@ -6,7 +6,7 @@ export const newServiceRequest = createAsyncThunk(
     'serviceRequest',
     async(newRequestData)=>{
         const res = await axios.post(`http://10.185.63.108:3200/api/request`,newRequestData);
-        console.log(res.data.request);
+        // console.log(res.data.request);
         return res.data.request;
     }
 )
@@ -14,7 +14,7 @@ export const newServiceRequest = createAsyncThunk(
 export const getAllRequests = createAsyncThunk(
     'getRequest',
     async()=>{
-        const res = await axios.get(`http://10.185.63.108:3200/api/request`);
+        const res = await axios.get(`http://10.185.63.108:3200/api/request?status=OPEN`);
         return res.data.requests || [];
     }
 )
@@ -50,9 +50,16 @@ const serviceRequestSlice = createSlice({
     initialState:{
         loading:false,
         error:null,
-        serviceRequest:[],
+        allRequests:[],
+        filteredRequests:[],
+        isFiltering:false
     },
-    reducers:{},
+    reducers:{
+        clearFilterRequests:(state)=>{
+            state.filteredRequests = [];
+            state.isFiltering = false;
+        }
+    },
     extraReducers:(builder)=>{
         builder
         .addCase(newServiceRequest.pending,(state)=>{
@@ -60,10 +67,15 @@ const serviceRequestSlice = createSlice({
         })
         .addCase(newServiceRequest.fulfilled, (state,action)=>{
             state.loading = false;
-            if(!Array.isArray(state.serviceRequest)){
-                state.serviceRequest = [];
+            if(!Array.isArray(state.allRequests)){
+                state.allRequests = [];
             }
-            state.serviceRequest.unshift(action.payload);
+            if(action.payload.status === "OPEN"){
+                state.allRequests.unshift(action.payload);
+                if(state.isFiltering){
+                    state.filteredRequests.unshift(action.payload);
+                }
+            }
         })
         .addCase(newServiceRequest.rejected,(state,action)=>{
             state.loading = false;
@@ -74,7 +86,7 @@ const serviceRequestSlice = createSlice({
         })
         .addCase(getAllRequests.fulfilled, (state,action)=>{
             state.loading = false,
-            state.serviceRequest = Array.isArray(action.payload) ? action.payload : [];
+            state.allRequests = Array.isArray(action.payload) ? action.payload : [];
         })
         .addCase(getAllRequests.rejected, (state,action)=>{
             state.loading = false,
@@ -85,11 +97,15 @@ const serviceRequestSlice = createSlice({
         })
         .addCase(deleteRequest.fulfilled,(state,action)=>{
             state.loading = false;
-            if(!Array.isArray(state.serviceRequest)){
-                state.serviceRequest = [];
+            if(!Array.isArray(state.allRequests)){
+                state.allRequests = [];
                 return;
             }
-            state.serviceRequest = state.serviceRequest.filter((elm)=>elm._id !== action.payload);
+            state.allRequests = state.allRequests.filter((elm)=>elm._id !== action.payload);
+            state.filteredRequests =
+                  state.filteredRequests.filter(
+                  (item)=> item._id !== action.payload
+            );
         })
         .addCase(deleteRequest.rejected, (state,action)=>{
             state.loading = false
@@ -97,24 +113,29 @@ const serviceRequestSlice = createSlice({
         })
         .addCase(updateRequest.fulfilled,(state,action)=>{
             state.loading = false;
-            if(!Array.isArray(state.serviceRequest)){
-                state.serviceRequest = [];
+            if(!Array.isArray(state.allRequests )){
+                state.allRequests = [];
                 return;
             }
-            state.serviceRequest = state.serviceRequest.map((elm)=>
+            state.allRequests  = state.allRequests .map((elm)=>
+                elm._id === action.payload._id ?
+                action.payload : elm
+            )
+            state.filteredRequests = state.filteredRequests.map((elm)=>
                 elm._id === action.payload._id ?
                 action.payload : elm
             )
         })
         .addCase(requestFilter.pending,(state,action)=>{
                 state.loading = true;
+                state.isFiltering = true
         })
         .addCase(requestFilter.fulfilled,(state,action)=>{
                 state.loading = false;
-                state.serviceRequest =
-        Array.isArray(action.payload)
-            ? action.payload
-            : [];
+                state.filteredRequests =
+                Array.isArray(action.payload)
+                ? action.payload
+                : [];
         })
         .addCase(requestFilter.rejected, (state,action)=>{
                 state.loading = false;
@@ -123,5 +144,5 @@ const serviceRequestSlice = createSlice({
     }
 })
 
-export const {} = serviceRequestSlice.actions;
+export const {clearFilterRequests} = serviceRequestSlice.actions;
 export default serviceRequestSlice.reducer;

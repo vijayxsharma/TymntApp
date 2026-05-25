@@ -4,13 +4,14 @@ import profileSlice from './profileSlice'
 import serviceRequestSlice from './serviceRequestSlice'
 import appModeSlice from './appModeSlice'
 import providerSlice from './providerSlice/serviceProviderSlice'
-
+import requestSlice from './requestSlice/requestSlice'
 export const store = configureStore({
   reducer: {
     authSlice,
     profileSlice,
     serviceRequestSlice,
     appModeSlice,
-    providerSlice
+    providerSlice,
+    requestSlice
   },
 })

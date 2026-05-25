@@ -7,6 +7,7 @@ import { requestRouter } from "./routes/requestRoutes.js"
 import { requestFilterRouter } from "./routes/requestFilterRoutes.js"
 import { requestAcceptRouter } from "./routes/requestAcceptRoute.js"
 import { providerProfileRouter } from "./routes/serviceProviderRoutes/providerProfileRoutes.js"
+import { providerRouter } from "./routes/serviceProviderRoutes/providerRoutes.js"
 dotenv.config()
 const app = express()
 
@@ -19,6 +20,7 @@ app.use("/api",requestFilterRouter);
 app.use("/api",requestAcceptRouter);
 
 app.use("/api/provider",providerProfileRouter)
+app.use("/api/provider",providerRouter)
 
 
 const port = process.env.PORT;

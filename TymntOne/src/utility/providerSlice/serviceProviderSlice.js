@@ -19,13 +19,21 @@ export const createServiceProvider = createAsyncThunk(
     }
 )
 
+export const getSingleProvider = createAsyncThunk(
+    'getSingleProvider',
+    async(id)=>{
+        const res = await axios.get(`http://10.185.63.108:3200/api/provider/${id}`)
+        return res.data
+    }
+)
+
 const providerSlice = createSlice({
     name:'providerSlice',
     initialState:{
         loading:false,
         error:null,
         isProviderProfileCompleted:false,
-        provider:null,
+        provider:[],
     },
     reducers:{},
     extraReducers:(builder)=>{
@@ -42,6 +50,12 @@ const providerSlice = createSlice({
         })
         .addCase(createServiceProvider.rejected,(state,action)=>{
             state.error = action.payload;
+        })
+        .addCase(getSingleProvider.fulfilled, (state,action)=>{
+            state.provider = action.payload.provider;
+        })
+        .addCase(getSingleProvider.rejected,(state,action)=>{
+            state.error = action.payload
         })
     }
 })

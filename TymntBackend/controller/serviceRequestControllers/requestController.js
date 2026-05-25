@@ -34,8 +34,14 @@ export const newRequestController = async(req,res)=>{
 
 export const getAllRequestsController = async(req, res)=>{
     try {
+        const {status} = req.query;
+        let filter = {};
+        // console.log(status)
+        if(status){
+            filter.status = status;
+        }
         const requests = await serviceRequests
-                               .find()
+                               .find(filter)
                                .populate("consumer_id")
                                .populate("service_provider_id")
                                .sort({createdAt:-1});

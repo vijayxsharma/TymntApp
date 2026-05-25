@@ -4,7 +4,9 @@ export const requestFilterController = async(req,res)=>{
     try {
         const {category, search} = req.query;
         // console.log('Data Filtering..')
-        let filter = {};
+        let filter = {
+            status:"OPEN"
+        };
         if(category){
             filter.category = {
             $regex: category,

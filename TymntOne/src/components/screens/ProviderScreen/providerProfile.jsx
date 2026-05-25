@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,10 +10,18 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ModeToggleButton from '../ModeToggleButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSingleProvider } from '../../../utility/providerSlice/serviceProviderSlice';
 
 const ProviderProfileScreen = () => {
+  const dispatch = useDispatch()
   const {user} = useSelector(state=>state.profileSlice)
+  const {provider} = useSelector(state=>state.providerSlice)
+  useEffect(()=>{
+    if(user?._id){
+      dispatch(getSingleProvider(user._id))
+    }
+  },[user])
   return (
     <View style={styles.container}>
       <ScrollView
@@ -41,7 +49,7 @@ const ProviderProfileScreen = () => {
           </View>
 
           <Text style={styles.role}>
-            Life Coach & Emotional Support Specialist
+            {provider?.[0]?.tagLine}
           </Text>
 
           {/* Stats */}
@@ -87,10 +95,7 @@ const ProviderProfileScreen = () => {
           <Text style={styles.sectionTitle}>About</Text>
 
           <Text style={styles.aboutText}>
-            I'm a certified life coach with 8 years of experience helping
-            individuals navigate career transitions, anxiety, and relationship
-            challenges. My approach is empathetic, structured, and
-            action-oriented. Let's work together to find clarity.
+            {provider?.[0]?.bio}
           </Text>
 
           <View style={styles.tagContainer}>

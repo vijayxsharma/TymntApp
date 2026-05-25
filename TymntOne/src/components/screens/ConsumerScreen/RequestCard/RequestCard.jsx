@@ -24,17 +24,17 @@ import {useState} from 'react';
 import RequestMenuModal from './RequestMenuModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import EditRequestModal from './EditRequestModal';
+import { AcceptRequest } from '../../../../utility/requestSlice/requestSlice';
 
 const RequestCard = () => {
   const dispatch = useDispatch();
-  const {serviceRequest} = useSelector(state => state.serviceRequestSlice);
-  // const {requestFeed} = useSelector(state=>state.requestFilterSlice)
+  const {allRequests,filteredRequests,isFiltering} = useSelector(state => state.serviceRequestSlice);
   const [menuVisible, setMenuVisible] = useState(false);
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
 
-  const openMenu = item => {
+  const openMenu = (item) => {
     setSelectedRequest(item);
     setMenuVisible(true);
   };
@@ -44,7 +44,7 @@ const RequestCard = () => {
     setDeleteVisible(false);
   };
 
-  const handleUpdate = newData => {
+  const handleUpdate = (newData) => {
     dispatch(updateRequest({id: selectedRequest._id, newData: newData}));
     setEditVisible(false);
   };
@@ -53,11 +53,16 @@ const RequestCard = () => {
     dispatch(getAllRequests());
   }, []);
 
-  console.log(selectedRequest);
+  const handleAcceptRequest =(id)=>{
+    dispatch(AcceptRequest({id}))
+  }
+
+  const displayedRequests = isFiltering ? filteredRequests : allRequests;
+
   return (
     <>
       <FlatList
-        data={serviceRequest || []}
+        data={displayedRequests || []}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
           <View style={styles.card}>
@@ -137,7 +142,9 @@ const RequestCard = () => {
                 <Text style={styles.actionText}>Message</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.startBtn}>
+              <TouchableOpacity style={styles.startBtn}
+                onPress={()=>handleAcceptRequest(item._id,)}
+              >
                 <Text style={styles.startText}>{item?.status}</Text>
               </TouchableOpacity>
             </View>

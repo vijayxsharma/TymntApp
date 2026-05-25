@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const service_request_Schema = new mongoose.Schema({
+const serviceRequestSchema  = new mongoose.Schema({
 
     consumer_id:{
         type: mongoose.Schema.Types.ObjectId,
@@ -23,22 +23,35 @@ const service_request_Schema = new mongoose.Schema({
         required:true,
     },
 
+    estimated_duration:String,
+
     status:{
         type:String,
-        default:'Accept',
+        enum:[
+            'OPEN',
+            'ACCEPTED',
+            'IN_PROGRESS',
+            'COMPLETED',
+            'CANCELLED'
+        ],
+        default:'OPEN',
     },
 
     service_provider_id:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'users',
         default:null
-    }
+    },
+
+    accepted_at:Date,
+
+    expired_at:Date,
 
 },{timestamps:true});
 
 const serviceRequests = mongoose.model(
     'service_requests',
-    service_request_Schema
+    serviceRequestSchema
 );
 
 export default serviceRequests;

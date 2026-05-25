@@ -6,6 +6,18 @@ const providerProfileSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+
+    current_engagement_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'engagements',
+        default:null
+    },
+
+    total_complted_services:{
+        type:Number,
+        default:0
+    },
+
     tagLine:{
         type:String,
         default:"",
@@ -13,11 +25,6 @@ const providerProfileSchema = new mongoose.Schema({
     bio:{
         type:String,
         default:"",
-    },
-    active_request_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'service_requests',
-        default:null,
     },
 },{timestamps:true})
 
